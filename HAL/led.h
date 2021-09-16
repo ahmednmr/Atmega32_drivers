@@ -9,9 +9,9 @@
 #define LED_H_
 
 
-#include "STD_TYPES.h"
-#include "Utils.h"
-#include "DIO.h"
+#include "../Helpers/STD_TYPES.h"
+#include "../Helpers/Utils.h"
+#include "../MCAL/DIO.h"
 
 #define First_LED_Port    PORT_D
 #define Second_LED_Port   PORT_D

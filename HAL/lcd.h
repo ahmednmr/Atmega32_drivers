@@ -8,9 +8,9 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-#include "STD_TYPES.h"
-#include "Utils.h"
-#include "DIO.h"
+#include "../Helpers/STD_TYPES.h"
+#include "../Helpers/Utils.h"
+#include "../MCAL/DIO.h"
 
 
 #define LCD_PORT			PORT_B // data wires on portA

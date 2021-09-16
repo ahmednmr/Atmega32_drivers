@@ -16,4 +16,6 @@
 
 /*         MACROS TO PORT        */
 
+#define  WRITE_PORT(REG,BYTE)      REG=BYTE
+
 #endif /* UTILS_H_ */

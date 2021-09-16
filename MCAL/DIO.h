@@ -8,8 +8,8 @@
 #ifndef DIO_H_
 #define DIO_H_
 
-#include "STD_TYPES.h"
-#include "Utils.h"
+#include "../Helpers/STD_TYPES.h"
+#include "../Helpers/Utils.h"
 #include <avr/io.h>
 #include <util/delay.h>
 #include<stdlib.h>

@@ -8,6 +8,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include MCAL/subdir.mk
+-include HAL/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -30,56 +32,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Button_Driver.lss \
+my_drivers_atmega32.lss \
 
 FLASH_IMAGE += \
-Button_Driver.hex \
+my_drivers_atmega32.hex \
 
 EEPROM_IMAGE += \
-Button_Driver.eep \
+my_drivers_atmega32.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Button_Driver.elf secondary-outputs
+all: my_drivers_atmega32.elf secondary-outputs
 
 # Tool invocations
-Button_Driver.elf: $(OBJS) $(USER_OBJS)
+my_drivers_atmega32.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Button_Driver.map -mmcu=atmega32 -o "Button_Driver.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,my_drivers_atmega32.map -mmcu=atmega32 -o "my_drivers_atmega32.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Button_Driver.lss: Button_Driver.elf
+my_drivers_atmega32.lss: my_drivers_atmega32.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Button_Driver.elf  >"Button_Driver.lss"
+	-avr-objdump -h -S my_drivers_atmega32.elf  >"my_drivers_atmega32.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Button_Driver.hex: Button_Driver.elf
+my_drivers_atmega32.hex: my_drivers_atmega32.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Button_Driver.elf  "Button_Driver.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex my_drivers_atmega32.elf  "my_drivers_atmega32.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Button_Driver.eep: Button_Driver.elf
+my_drivers_atmega32.eep: my_drivers_atmega32.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Button_Driver.elf  "Button_Driver.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex my_drivers_atmega32.elf  "my_drivers_atmega32.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Button_Driver.elf
+sizedummy: my_drivers_atmega32.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 Button_Driver.elf
+	-avr-size --format=avr --mcu=atmega32 my_drivers_atmega32.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Button_Driver.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) my_drivers_atmega32.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)

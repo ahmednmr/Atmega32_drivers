@@ -8,6 +8,8 @@
 #ifndef EXT_INT_H_
 #define EXT_INT_H_
 #include <avr/interrupt.h>
+#include "../Helpers/STD_TYPES.h"
+#include "../Helpers/Utils.h"
 #include "DIO.h"
 
 typedef enum {
