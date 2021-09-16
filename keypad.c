@@ -1,0 +1,107 @@
+/*
+ * keypad.c
+ *
+ *  Created on: ??þ/??þ/????
+ *      Author: Nmr
+ */
+
+
+#include"keypad.h"
+
+
+void EF_void_KeyPad_Init (void)
+{
+
+	DIO_Init_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN ,INPUT);
+	DIO_Init_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN ,INPUT);
+	DIO_Init_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN ,INPUT);
+
+
+	DIO_Init_Pin(KEYBAD_COLUMN_PORT ,FIRST_COLUMN_PIN ,OUTPUT);
+	DIO_Init_Pin(KEYBAD_COLUMN_PORT ,SECOND_COLUMN_PIN ,OUTPUT);
+	DIO_Init_Pin(KEYBAD_COLUMN_PORT ,THIRD_COLUMN_PIN ,OUTPUT);
+
+	DIO_Set_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN);
+	DIO_Set_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN);
+	DIO_Set_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN);
+
+}
+
+
+U8 EF_u8_KeyPad_Scan (void)
+{
+	U8 pressed_key=NOT_PRESSED;
+
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,FIRST_COLUMN_PIN ,LOW);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,SECOND_COLUMN_PIN ,HIGH);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,THIRD_COLUMN_PIN ,HIGH);
+
+	if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)));
+		pressed_key=1;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+			pressed_key=2;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+			pressed_key=3;
+	}
+
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,FIRST_COLUMN_PIN ,HIGH);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,SECOND_COLUMN_PIN ,LOW);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,THIRD_COLUMN_PIN ,HIGH);
+
+	if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)))
+			pressed_key=4;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+			pressed_key=5;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+			pressed_key=6;
+	}
+
+
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,FIRST_COLUMN_PIN ,HIGH);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,SECOND_COLUMN_PIN ,HIGH);
+	DIO_Write_Pin(KEYBAD_COLUMN_PORT ,THIRD_COLUMN_PIN ,LOW);
+
+	if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,FIRST_ROW_PIN)))
+			pressed_key=7;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,SECOND_ROW_PIN)))
+			pressed_key=8;
+	}
+	else if(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+	{
+		BOUNCING_DELAY;
+		while(!(DIO_Get_Pin(KEYBAD_ROW_PORT ,THIRD_ROW_PIN)))
+			pressed_key=9;
+	}
+
+
+	return pressed_key;
+}

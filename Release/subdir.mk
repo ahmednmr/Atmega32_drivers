@@ -4,25 +4,34 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../7_segment.c \
 ../Button.c \
 ../DIO.c \
 ../EXT_INT.c \
+../buzzer.c \
+../keypad.c \
 ../lcd.c \
 ../led.c \
 ../main.c 
 
 OBJS += \
+./7_segment.o \
 ./Button.o \
 ./DIO.o \
 ./EXT_INT.o \
+./buzzer.o \
+./keypad.o \
 ./lcd.o \
 ./led.o \
 ./main.o 
 
 C_DEPS += \
+./7_segment.d \
 ./Button.d \
 ./DIO.d \
 ./EXT_INT.d \
+./buzzer.d \
+./keypad.d \
 ./lcd.d \
 ./led.d \
 ./main.d 

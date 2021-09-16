@@ -30,56 +30,56 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-Button_Driver.lss \
+My_Drivers.lss \
 
 FLASH_IMAGE += \
-Button_Driver.hex \
+My_Drivers.hex \
 
 EEPROM_IMAGE += \
-Button_Driver.eep \
+My_Drivers.eep \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: Button_Driver.elf secondary-outputs
+all: My_Drivers.elf secondary-outputs
 
 # Tool invocations
-Button_Driver.elf: $(OBJS) $(USER_OBJS)
+My_Drivers.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,Button_Driver.map -mmcu=atmega32 -o "Button_Driver.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,My_Drivers.map -mmcu=atmega32 -o "My_Drivers.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-Button_Driver.lss: Button_Driver.elf
+My_Drivers.lss: My_Drivers.elf
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S Button_Driver.elf  >"Button_Driver.lss"
+	-avr-objdump -h -S My_Drivers.elf  >"My_Drivers.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Button_Driver.hex: Button_Driver.elf
+My_Drivers.hex: My_Drivers.elf
 	@echo 'Create Flash image (ihex format)'
-	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex Button_Driver.elf  "Button_Driver.hex"
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex My_Drivers.elf  "My_Drivers.hex"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Button_Driver.eep: Button_Driver.elf
+My_Drivers.eep: My_Drivers.elf
 	@echo 'Create eeprom image (ihex format)'
-	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex Button_Driver.elf  "Button_Driver.eep"
+	-avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex My_Drivers.elf  "My_Drivers.eep"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: Button_Driver.elf
+sizedummy: My_Drivers.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 Button_Driver.elf
+	-avr-size --format=avr --mcu=atmega32 My_Drivers.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) Button_Driver.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(EEPROM_IMAGE)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) My_Drivers.elf
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
